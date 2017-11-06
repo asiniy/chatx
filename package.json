@@ -1,0 +1,30 @@
+{
+  "name": "chatx",
+  "version": "0.0.1",
+  "description": "chat",
+  "main": "-",
+  "scripts": {
+    "test": "-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asiniy/chatx.git"
+  },
+  "keywords": [
+    "-"
+  ],
+  "author": "-",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/asiniy/chatx/issues"
+  },
+  "homepage": "https://github.com/asiniy/chatx#readme",
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
