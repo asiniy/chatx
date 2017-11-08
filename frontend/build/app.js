@@ -992,7 +992,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _reactDom.render)(_react2.default.createElement(
   'div',
   { id: 'lol' },
-  'Hello ahahahahahahah react!'
+  'Hello lol react!'
 ), document.getElementById('root'));
 
 /***/ }),

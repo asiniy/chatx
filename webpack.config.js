@@ -1,14 +1,22 @@
-//import webpack from 'webpack';
-//import path from 'path';
+const path  = require('path');
 
-var path = require("path");
-
-var config = {
-    entry: "./frontend/src/app.js",
-    output: {
-        path: __dirname + "/frontend/build",
-        filename: "bundle.js"
-    }
+module.exports = {
+  entry: path.join(__dirname, 'frontend', 'src', 'app.js'),
+  output: {
+    path: path.join(__dirname, 'frontend', 'build'),
+    filename: 'app.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
+    ]
+  },
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader:"babel-loader" }
+    ]
+  },
 };
-
-module.exports = config;
