@@ -13,24 +13,24 @@ class SignInForm extends React.Component {
   this.handleSubmit = this.handleSubmit.bind(this);
 }
 
-  handleChange(event) {
+  handleChange(e) {
     this.setState({
-      [event.target.name]: event.target.value});
+      [e.target.name]: e.target.value});
   }
 
-  handleSubmit(event) {
+  handleSubmit(e) {
+    e.prDefault();
     fetch('http://localhost:3000/api/session', {
       method: 'POST',
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.username,
       })
-    })
-    
+    }).then(() => {alert("Succesful")})
+    .catch(() => {alert("Error")});
     // alert(this.state.username +" " + this.state.password);
-
-    event.preventDefault();
   }
+
 
   render(){
     return (
