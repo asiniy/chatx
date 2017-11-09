@@ -19,7 +19,16 @@ class SignInForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert(this.state.username +" " + this.state.password);
+    fetch('http://localhost:3000/api/session', {
+      method: 'POST',
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.username,
+      })
+    })
+    
+    // alert(this.state.username +" " + this.state.password);
+
     event.preventDefault();
   }
 
@@ -32,8 +41,8 @@ class SignInForm extends React.Component {
           <input name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
       </label>
         <input type="submit" value="Sign In"/>
-        <p>{this.state.username}</p>
-        <p>{this.state.password}</p>
+        {/* <p>{this.state.username}</p>
+        <p>{this.state.password}</p> */}
 
       </form>
     );
