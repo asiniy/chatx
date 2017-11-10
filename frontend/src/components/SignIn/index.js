@@ -9,16 +9,16 @@ class SignInForm extends React.Component {
       password: '',
     }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  handleChange(e) {
+  onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
-    e.prDefault();
+  onSubmit(e) {
+    e.preventDefault();
     fetch('http://localhost:3000/api/session', {
       method: 'POST',
       body: JSON.stringify({
@@ -33,11 +33,11 @@ class SignInForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.onSubmit}>
         <h1>Sign In</h1>
         <label htmlFor="SignInForm">
-          <input name="username" type="text" value={this.state.username} onChange={this.handleChange} />
-          <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
+          <input name="username" type="text" value={this.state.username} onChange={this.onChange} />
+          <input name="password" type="password" value={this.state.password} onChange={this.onChange} />
         </label>
         <input type="submit" value="Sign In" />
         {/* <p>{this.state.username}</p>
