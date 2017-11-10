@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-class SignInForm extends React.Component {
+export default class SignInForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -47,7 +46,3 @@ class SignInForm extends React.Component {
     );
   }
 }
-
-const root = document.getElementById('root');
-
-ReactDOM.render(<SignInForm />, root);
