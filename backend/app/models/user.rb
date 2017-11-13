@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :messages
+
   def self.find_and_authenticate(username, password)
     user = User.find_by(username: username)
 
@@ -15,7 +17,6 @@ class User < ApplicationRecord
       username: self.username,
       first_name: self.first_name,
       last_name: self.last_name,
-      token: self.token,
     }
   end
 end
