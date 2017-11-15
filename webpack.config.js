@@ -1,4 +1,5 @@
 const path  = require('path');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
   entry: path.join(__dirname, 'frontend', 'src', 'app.js'),
@@ -10,13 +11,21 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader:"babel-loader" }
-    ]
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+    ],
   },
+  plugins: [
+    new LiveReloadPlugin({
+      protocol: 'http',
+      hostname: 'localhost',
+      port: 35729,
+    }),
+  ],
+
 };

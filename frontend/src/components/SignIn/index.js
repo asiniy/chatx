@@ -4,8 +4,8 @@ export default class SignInForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: '',
-      password: '',
+      username: 'vasiliy',
+      password: 'secret',
     }
 
     this.onChange = this.onChange.bind(this);
@@ -17,18 +17,13 @@ export default class SignInForm extends React.Component {
   }
 
   onSubmit(e) {
+    const { username, password } = this.state;
     e.preventDefault();
     fetch('http://localhost:3000/api/session', {
       method: 'POST',
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.username,
-      }),
-    }).then(() => { alert('Succesful') }) // eslint-disable-line no-alert
-      .catch(() => { alert('Error') }); // eslint-disable-line no-alert
-    // alert(this.state.username +" " + this.state.password);
+      body: { username, password },
+    }).then((response) => { console.log(response); });
   }
-
 
   render() {
     return (

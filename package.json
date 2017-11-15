@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "webpack-dev-server --content-base ./frontend/ --inline --hot",
     "lint": "eslint --color --fix src/"
   },
   "repository": {
@@ -38,6 +37,7 @@
     "eslint-plugin-react": "^7.4.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-livereload-plugin": "^1.0.0"
   }
 }
