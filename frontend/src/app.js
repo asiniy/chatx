@@ -19,13 +19,13 @@ class App extends React.Component {
     this.setState({ user: null });
   }
 
-  onSignIn(user) {
-    this.setState({ user });
+  onSignIn(data) {
+    this.setState({ user: data }, () => { console.log(this.state) });
   }
 
   render() {
     const { user } = this.state;
-
+    console.log(user);
     if (user) {
       return (<Chat
         user={user}

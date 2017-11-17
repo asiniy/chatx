@@ -17,6 +17,7 @@ export default class SignInForm extends React.Component {
   }
 
   onSubmit(e) {
+    const { onSignIn } = this.props;
     const { username, password } = this.state;
     e.preventDefault();
     fetch('http://localhost:3000/api/session', {
@@ -26,8 +27,7 @@ export default class SignInForm extends React.Component {
     }).then((resp) => {
       resp.json()
         .then((data) => {
-          console.log(data);
-          this.props.onSignIn(data);
+          onSignIn(data);
         })
     });
   }
