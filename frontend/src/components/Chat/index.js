@@ -1,15 +1,46 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Chat extends React.Component {
+const Name = (props) => {
+  return (<div>{props.firstName} {props.lastName}</div>);
+}
 
-  render() {
-    const { onSignOut } = this.props;
-    return (<div>
-      <h1>Hello {this.props.user.username}</h1> // stateless component
+const Username = (props) => {
+  return (<div>@{props.username}</div>);
+}
+
+const Chat = (props) => {
+  const { onSignOut } = props;
+  const { user } = props;
+  return (
+    <div>
+      <Name
+        firstName={user.first_name}
+        lastName={user.last_name}
+      />
+      <div>id: {user.id}</div>
+      <Username username={user.username} />
       <button onClick={onSignOut}>
         Sign Out
       </button>
     </div>
-    );
-  }
+  );
 }
+
+export default Chat
+
+Chat.propTypes = {
+  user: PropTypes.object.isRequired,
+  onSignOut: PropTypes.func,
+};
+//
+Name.propTypes = {
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+};
+
+Username.propTypes = {
+  username: PropTypes.string,
+};
+
+// обертка над фетч -токен утда

@@ -20,13 +20,16 @@ class App extends React.Component {
   }
 
   onSignIn(data) {
-    this.setState({ user: data }, () => { console.log(this.state) });
+    this.setState({ user: data }, () => {
+      console.log(this.state);
+      localStorage.setItem("token", this.state.user.token);
+
+    });
   }
 
   render() {
     const { user } = this.state;
-    console.log(user);
-    if (user) {
+    if (user) { // if isNil return signIn lodash
       return (<Chat
         user={user}
         onSignOut={this.onSignOut}

@@ -41,9 +41,6 @@ export default class SignInForm extends React.Component {
           <input name="password" type="password" value={this.state.password} onChange={this.onChange} />
         </label>
         <input type="submit" value="Sign In" />
-        {/* <p>{this.state.username}</p>
-        <p>{this.state.password}</p> */}
-
       </form>
     );
   }
