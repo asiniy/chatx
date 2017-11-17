@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default class SignInForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: 'vasiliy',
       password: 'secret',
@@ -21,8 +21,15 @@ export default class SignInForm extends React.Component {
     e.preventDefault();
     fetch('http://localhost:3000/api/session', {
       method: 'POST',
-      body: { username, password },
-    }).then((response) => { console.log(response); });
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then((resp) => {
+      resp.json()
+        .then((data) => {
+          console.log(data);
+          this.props.onSignIn(data);
+        })
+    });
   }
 
   render() {

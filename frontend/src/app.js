@@ -10,14 +10,17 @@ class App extends React.Component {
     this.state = {
       user: null,
     }
+
+    this.onSignIn = this.onSignIn.bind(this);
+    this.onSignOut = this.onSignOut.bind(this);
   }
 
   onSignOut() {
     this.setState({ user: null });
   }
 
-  onSignIn() {
-    this.setState({ user: null });
+  onSignIn(user) {
+    this.setState({ user });
   }
 
   render() {
