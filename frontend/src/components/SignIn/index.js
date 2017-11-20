@@ -6,6 +6,7 @@ export default class SignInForm extends React.Component {
     this.state = {
       username: 'vasiliy',
       password: 'secret',
+      errorMsg: '',
     }
 
     this.onChange = this.onChange.bind(this);
@@ -25,10 +26,16 @@ export default class SignInForm extends React.Component {
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     }).then((resp) => {
-      resp.json()
-        .then((data) => {
-          onSignIn(data);
-        })
+      if (resp.status === 422) {
+        return resp.text();
+      }
+      return resp.json();
+    }).then((data) => {
+      if (data.id === undefined) {
+        this.setState({ errorMsg: data });
+      } else {
+        onSignIn(data);
+      }
     });
   }
 
@@ -41,6 +48,7 @@ export default class SignInForm extends React.Component {
           <input name="password" type="password" value={this.state.password} onChange={this.onChange} />
         </label>
         <input type="submit" value="Sign In" />
+        <p>{this.state.errorMsg}</p>
       </form>
     );
   }

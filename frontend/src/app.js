@@ -19,12 +19,18 @@ class App extends React.Component {
     this.setState({ user: null });
   }
 
-  onSignIn(data) {
-    this.setState({ user: data }, () => {
-      console.log(this.state);
-      localStorage.setItem("token", this.state.user.token);
+  showError(error) {
+    console.log(error);
+  }
 
-    });
+  onSignIn(data) {
+    if (data.id === undefined) {
+      showError(data);
+    } else {
+      this.setState({ user: data }, () => {
+        localStorage.setItem('token', this.state.user.token);
+      });
+    }
   }
 
   render() {
