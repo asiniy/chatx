@@ -6,7 +6,7 @@ export default class SignInForm extends React.Component {
     this.state = {
       username: 'vasiliy',
       password: 'secret',
-      errorMsg: '',
+      errors: [],
     }
 
     this.onChange = this.onChange.bind(this);
@@ -27,28 +27,43 @@ export default class SignInForm extends React.Component {
       headers: { 'Content-Type': 'application/json' },
     }).then((resp) => {
       if (resp.status === 422) {
-        return resp.text();
+        resp.json().then((data) => {
+          this.setState({ errors: data.errors })
+        });
+        return
       }
-      return resp.json();
-    }).then((data) => {
-      if (data.id === undefined) {
-        this.setState({ errorMsg: data });
-      } else {
-        onSignIn(data);
+
+      if (resp.status === 201) {
+        resp.json().then(data => onSignIn(data));
       }
     });
+  }
+
+  renderErrors() {
+    const { errors } = this.state
+
+    if (errors.length === 0) { return }
+
+    return ( // eslit
+      <div>
+        <h2>Vasiliy has errors on sign in</h2>
+        <ul>
+          {this.state.errors.map(error => <li>{error}</li>)}
+        </ul>
+      </div>
+    )
   }
 
   render() {
     return (
       <form onSubmit={this.onSubmit}>
         <h1>Sign In</h1>
+        {this.renderErrors()}
         <label htmlFor="SignInForm">
           <input name="username" type="text" value={this.state.username} onChange={this.onChange} />
           <input name="password" type="password" value={this.state.password} onChange={this.onChange} />
         </label>
         <input type="submit" value="Sign In" />
-        <p>{this.state.errorMsg}</p>
       </form>
     );
   }

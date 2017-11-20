@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Name = (props) => {
-  return (<div>{props.firstName} {props.lastName}</div>);
-}
+const Name = props => <div>{props.firstName} {props.lastName}</div>;
 
 const Username = (props) => {
   return (<div>@{props.username}</div>);
