@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 const Name = props => <div>{props.firstName} {props.lastName}</div>;
 
-const Username = (props) => {
-  return (<div>@{props.username}</div>);
-}
+const Username = props => <div>@{props.username}</div>;
 
 const Chat = (props) => {
   const { onSignOut } = props;

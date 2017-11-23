@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -44,15 +45,17 @@ export default class SignInForm extends React.Component {
 
     if (errors.length === 0) { return }
 
-    return ( // eslit
+/* eslint-disable */
+    return (
       <div>
         <h2>Vasiliy has errors on sign in</h2>
         <ul>
-          {this.state.errors.map(error => <li>{error}</li>)}
+          {this.state.errors.map((error, i) => (<li key={i}>{error}</li>))}
         </ul>
       </div>
     )
   }
+  /* eslint-enable */
 
   render() {
     return (
@@ -68,3 +71,7 @@ export default class SignInForm extends React.Component {
     );
   }
 }
+
+SignInForm.propTypes = {
+  onSignIn: PropTypes.func.isRequired,
+};
