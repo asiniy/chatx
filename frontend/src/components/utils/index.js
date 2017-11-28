@@ -1,3 +1,5 @@
-const _fetch = require('./fetch');
+import fetch from './fetch';
 
-exports.fetch = _fetch;
+export {
+  fetch, // eslint-disable-line
+}

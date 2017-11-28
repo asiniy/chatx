@@ -8,18 +8,19 @@ module.exports = {
     filename: 'app.js'
   },
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
     ],
   },
-  module: {
-    rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
-    ],
-  },
+
   plugins: [
     new LiveReloadPlugin({
       protocol: 'http',

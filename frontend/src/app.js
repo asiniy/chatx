@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'lodash'; // {is Nil}
+import { isNil } from 'lodash'; // {is Nil}
 import SignIn from './components/SignIn';
 import Chat from './components/Chat';
-//import { fetch } from './components/utils'
-
+import { fetch } from './components/utils'
+import styles from './styles.css'
 // TODO find enum lib for js
 
 const NO_INFO_ABOUT_USER = 1;
@@ -30,7 +30,7 @@ class App extends React.Component {
   fetchUser() {
     const token = localStorage.getItem('token');
 
-    if (_.isNil(token)) {
+    if (isNil(token)) {
       this.setState({ user: USER_IS_GUEST });
 
       return
@@ -41,19 +41,8 @@ class App extends React.Component {
     // TODO есдли обертка вернула сексесс то тогда  юзер назначаем дата,
     // а если нет то ставим статус гуест
 
+      fetch().then((data) => { this.setState({ user: data }); });
 
-    fetch('http://localhost:3000/api/users/me', {
-      method: 'GET',
-      headers: { token, 'Content-Type': 'application/json' },
-    }).then((resp) => {
-      if (resp.status === 304) {
-        resp.json().then((data) => {
-          this.setState({ user: data })
-        });
-        return true;
-      }
-      return null;
-    });
   }
 
   onSignOut() {
@@ -70,11 +59,10 @@ class App extends React.Component {
   }
 
 
-
   render() {
     const { user } = this.state;
     if (user === NO_INFO_ABOUT_USER) {
-      return null;
+      return (<img className="loading-img" src="./img/loading.gif" alt="loading" />)
     } // TODO circles
 
     if (user === USER_IS_GUEST) {

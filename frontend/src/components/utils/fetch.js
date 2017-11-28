@@ -6,26 +6,22 @@
 
 // export default (args) => { alert(args); }
 
-const FAIL = false;
-const SUCCESS = true;
 
-function fetch(token) {
-  fetch('http://localhost:3000/api/users/me', {
+const SUCCESS = true;
+const FAILURE = false;
+const SUCCESSUL_RATES = [200, 201, 304];
+
+export default () => {
+  const token = localStorage.getItem('token');
+  return fetch('http://localhost:3000/api/users/me', {
     method: 'GET',
     headers: { token, 'Content-Type': 'application/json' },
   }).then((resp) => {
-    if (resp.status === 304) {
-      resp.json().then((data) => {
-        return {
-          status: SUCCESS,
-          user: data,
-        }
-      });
+    if (SUCCESSUL_RATES.includes(resp.status)) {
+      return resp.json();
     }
-    return { FAIL };
+    return { status: FAILURE };
   });
 }
 
-exports.default = fetch;
-
-module.exports = exports['default'];
+// TODO Secsessful sattes 200 201 204
