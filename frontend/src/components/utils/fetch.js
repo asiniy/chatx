@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 // TODO src/utils ->fetch там 2 конст с 304 и 201, если статус ответа равен
 // 304 или 201, тогда я возвращаю  не только респонс а еще этому репнос
 // назначаю тру, или сексесс, а если другой ответ то отпет фолс.
@@ -6,27 +7,42 @@
 
 // export default (args) => { alert(args); }
 
-
-const SUCCESS = true;
-const FAILURE = false;
 const SUCCESSUL_RATES = [200, 201, 304];
 // fetch(url, { method: 'GET', params: { some_param: 1, a: "b", vasiliy: "is awesome" } })
 // 'http://localhost:3000/api/users/me'
-export default (url, obj) => {
+export default (url, options) => {
   const token = localStorage.getItem('token');
-  return fetch(url, obj.method === 'POST' ? {
-    method: 'POST',
-    headers: { token, 'Content-Type': 'application/json' },
-    body: obj.params,
-  } : {
-    method: 'GET',
-    headers: { token, 'Content-Type': 'application/json' },
-  }).then((resp) => {
-    if (SUCCESSUL_RATES.includes(resp.status)) {
-      return resp.json();
-    }
-    return { status: FAILURE };
-  });
-}
+  const method = get(options, 'method', 'GET') // TODO посмотреть что это
 
-// TODO Secsessful sattes 200 201 204
+  const baseOptions = {
+    method,
+    token,
+    'Content-Type': 'application/json',
+  }
+
+  let customFetchOptions
+  switch (method) {
+    case 'GET':
+      // TODO прочесть про GET параметры в HTTP запросах, дописать функционал, протестировать
+      customFetchOptions = {}
+      break;
+    case 'POST':
+      customFetchOptions = { body: options.params }
+      break;
+    default:
+      throw new Error(`No such HTTP method: ${method}`)
+  }
+
+  const fetchOptions = Object.assign({}, baseOptions, customFetchOptions)
+
+  return fetch(url, fetchOptions)
+    .then(async (resp) => {
+      const data = await resp.json()
+
+      if (SUCCESSUL_RATES.includes(resp.status)) {
+        return resp.json();
+      }
+
+      throw data
+    })
+}

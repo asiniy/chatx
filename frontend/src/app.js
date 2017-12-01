@@ -36,12 +36,14 @@ class App extends React.Component {
       return
     }
 
-    fetch('http://localhost:3000/api/users/me', { method: 'GET', params: {} }).then((data) => {
-      if (!data) {
-        return;
-      }
-      this.setState({ user: data })
-    });
+    fetch('http://localhost:3000/api/users/me', { method: 'GET' })
+      .then((data) => {
+        this.setState({ user: data })
+      })
+      .catch(data => {
+        console.log('there')
+        console.log(data)
+      })
   }
 
   onSignOut() {
