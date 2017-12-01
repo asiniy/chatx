@@ -1,3 +1,4 @@
+// import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -59,7 +60,7 @@ export default class SignInForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="container" onSubmit={this.onSubmit}>
         <h1>Sign In</h1>
         {this.renderErrors()}
         <label htmlFor="SignInForm">

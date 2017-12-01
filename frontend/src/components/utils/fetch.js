@@ -10,10 +10,15 @@
 const SUCCESS = true;
 const FAILURE = false;
 const SUCCESSUL_RATES = [200, 201, 304];
-
-export default () => {
+// fetch(url, { method: 'GET', params: { some_param: 1, a: "b", vasiliy: "is awesome" } })
+// 'http://localhost:3000/api/users/me'
+export default (url, obj) => {
   const token = localStorage.getItem('token');
-  return fetch('http://localhost:3000/api/users/me', {
+  return fetch(url, obj.method === 'POST' ? {
+    method: 'POST',
+    headers: { token, 'Content-Type': 'application/json' },
+    body: obj.params,
+  } : {
     method: 'GET',
     headers: { token, 'Content-Type': 'application/json' },
   }).then((resp) => {

@@ -8,7 +8,7 @@ import styles from './styles.css'
 // TODO find enum lib for js
 
 const NO_INFO_ABOUT_USER = 1;
-const USER_SIGNED_IN = 2;
+// const USER_SIGNED_IN = 2;
 const USER_IS_GUEST = 3;
 
 class App extends React.Component {
@@ -35,14 +35,13 @@ class App extends React.Component {
 
       return
     }
-    // TODO src/utils ->fetch там 2 конст с 304 и 201, если статус ответа равен
-    // 304 или 201, тогда я возвращаю  не только респонс а еще этому репнос
-    // назначаю тру, или сексесс, а если другой ответ то отпет фолс.
-    // TODO есдли обертка вернула сексесс то тогда  юзер назначаем дата,
-    // а если нет то ставим статус гуест
 
-      fetch().then((data) => { this.setState({ user: data }); });
-
+    fetch('http://localhost:3000/api/users/me', { method: 'GET', params: {} }).then((data) => {
+      if (!data) {
+        return;
+      }
+      this.setState({ user: data })
+    });
   }
 
   onSignOut() {
@@ -53,8 +52,8 @@ class App extends React.Component {
   onSignIn(data) {
     this.setState({ user: data }, () => {
       localStorage.setItem('token', this.state.user.token);
-      console.log('onSignIn...');
-      console.log(this.state.user);
+      console.log('onSignIn...'); // eslint-disable-line
+      console.log(this.state.user); // eslint-disable-line
     });
   }
 
