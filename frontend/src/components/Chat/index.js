@@ -6,7 +6,7 @@ const Name = props => <div>{props.firstName} {props.lastName}</div>;
 
 const Username = props => <div>@{props.username}</div>;
 
-const Messages = fetch('http://localhost:3000/api/users/me', { method: 'GET', params: {} });
+const Messages = fetch('http://localhost:3000/api/users/me', { method: 'GET' });
 const Chat = (props) => {
   Messages.then((data) => { console.log(data) });
   const { onSignOut } = props;

@@ -40,9 +40,9 @@ class App extends React.Component {
       .then((data) => {
         this.setState({ user: data })
       })
-      .catch(data => {
-        console.log('there')
-        console.log(data)
+      .catch((data) => {
+        console.log(data);
+        this.setState({ user: USER_IS_GUEST });
       })
   }
 

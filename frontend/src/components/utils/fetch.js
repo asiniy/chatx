@@ -16,33 +16,36 @@ export default (url, options) => {
 
   const baseOptions = {
     method,
-    token,
-    'Content-Type': 'application/json',
-  }
+    headers: {
+      token,
+      'Content-Type': 'application/json',
+    },
+  };
 
-  let customFetchOptions
+  let customFetchOptions;
   switch (method) {
     case 'GET':
       // TODO прочесть про GET параметры в HTTP запросах, дописать функционал, протестировать
-      customFetchOptions = {}
+      customFetchOptions = {};
       break;
     case 'POST':
-      customFetchOptions = { body: options.params }
+      customFetchOptions = { body: options.params };
       break;
     default:
-      throw new Error(`No such HTTP method: ${method}`)
+      throw new Error(`No such HTTP method: ${method}`);
   }
 
   const fetchOptions = Object.assign({}, baseOptions, customFetchOptions)
 
   return fetch(url, fetchOptions)
     .then(async (resp) => {
-      const data = await resp.json()
+      const data = await resp.json();
 
       if (SUCCESSUL_RATES.includes(resp.status)) {
-        return resp.json();
+        // return resp.json();
+        return data;
       }
 
-      throw data
+      throw data;
     })
 }
