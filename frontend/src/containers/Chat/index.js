@@ -6,9 +6,24 @@ const Name = props => <div>{props.firstName} {props.lastName}</div>;
 
 const Username = props => <div>@{props.username}</div>;
 
-const Messages = fetch('http://localhost:3000/api/users/me', { method: 'GET' });
-const Chat = (props) => {
-  Messages.then((data) => { console.log(data) });
+const messages = fetch('http://localhost:3000/api/users/me', { method: 'GET' });
+// почитать camelCase
+class Chat extends (props) => {
+  constructor(props) {
+    super(props)
+    this.state = {
+      messages: null,
+    }
+  }
+
+
+  componentDidMount()
+    fetch('http://localhost:3000/api/users/me', { method: 'GET' })
+      .then((messages) => {
+        this.setState({ messages })
+      })
+  }
+
   const { onSignOut } = props;
   const { user } = props;
   return (
