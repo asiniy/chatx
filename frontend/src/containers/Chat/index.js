@@ -1,47 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetch } from '../utils';
+import { fetch } from '../../utils';
+import { Name, Username, MessageList } from '../../components';
 
-const Name = props => <div>{props.firstName} {props.lastName}</div>;
-
-const Username = props => <div>@{props.username}</div>;
-
-const messages = fetch('http://localhost:3000/api/users/me', { method: 'GET' });
 // почитать camelCase
-class Chat extends (props) => {
+export default class Chat extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       messages: null,
     }
   }
 
 
-  componentDidMount()
+  componentDidMount() {
     fetch('http://localhost:3000/api/users/me', { method: 'GET' })
-      .then((messages) => {
-        this.setState({ messages })
-      })
+      .then((msg) => {
+        this.setState({ messages: msg })
+      });
   }
 
-  const { onSignOut } = props;
-  const { user } = props;
-  return (
-    <div>
-      <Name
-        firstName={user.first_name}
-        lastName={user.last_name}
-      />
-      <div>id: {user.id}</div>
-      <Username username={user.username} />
-      <button onClick={onSignOut}>
-        Sign Out
-      </button>
-    </div>
-  );
+render() {
+    const { onSignOut } = this.props;
+    const { user } = this.props;
+
+    return (
+      <div>
+        <Name
+          firstName={user.first_name}
+          lastName={user.last_name}
+        />
+        <div>id: {user.id}</div>
+        <Username username={user.username} />
+        <button onClick={onSignOut}>
+          Sign Out
+        </button>
+        <MessageList msgs={this.state.messages} />
+      </div>
+    );
+  }
 }
 
-export default Chat
 
 Chat.propTypes = {
   user: PropTypes.object.isRequired,

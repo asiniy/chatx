@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { isNil } from 'lodash'; // {is Nil}
-import SignIn from './components/SignIn';
-import Chat from './components/Chat';
-import { fetch } from './components/utils'
-import styles from './styles.css'
+import SignIn from './containers/SignIn';
+import Chat from './containers/Chat';
+import { fetch } from './utils'
+// import styles from './styles.css'
 // TODO find enum lib for js
 
 const NO_INFO_ABOUT_USER = 1;
-// const USER_SIGNED_IN = 2;
 const USER_IS_GUEST = 3;
 
 class App extends React.Component {
