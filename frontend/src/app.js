@@ -51,12 +51,9 @@ class App extends React.Component {
     localStorage.removeItem('token');
   }
 
-  onSignIn(data) {
-    this.setState({ user: data }, () => {
-      localStorage.setItem('token', this.state.user.token);
-      const token = localStorage.getItem('token');
-      console.log(`token in localstorage: ${token}`);
-    });
+  onSignIn(user) {
+    localStorage.setItem('token', user.token);
+    this.setState({ user });
   }
 
 
@@ -64,7 +61,7 @@ class App extends React.Component {
     const { user } = this.state;
     if (user === NO_INFO_ABOUT_USER) {
       return (<Loading />)
-    } // TODO circles
+    }
 
     if (user === USER_IS_GUEST) {
       return (<SignIn
