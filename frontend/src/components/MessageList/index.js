@@ -1,16 +1,7 @@
 import React from 'react';
 
-export default (msgs) => {
-  console.log(msgs);
-  if (msgs === null)
-    return;
-
-  render() {
-    return (
-      <ul>
-        {msgs.map(({ body }) => <li>{body}</li>)}
-      </ul>
-    )
-  }
-
+// export default messages => <ul>{messages.map(({ body }) => <li>{body}</li>)}</ul>;
+export default (obj) => {
+  const { messages } = obj;
+  return (<ul>{messages.map(({ id, body }) => <li key={id}>{body}</li>)}</ul>);
 }

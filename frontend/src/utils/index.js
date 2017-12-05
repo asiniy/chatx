@@ -1,5 +1,7 @@
 import fetch from './fetch';
+import name from './name';
 
 export {
-  fetch, // eslint-disable-line
+  fetch,
+  name,
 }

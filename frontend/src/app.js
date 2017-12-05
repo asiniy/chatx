@@ -4,7 +4,8 @@ import { isNil } from 'lodash'; // {is Nil}
 import SignIn from './containers/SignIn';
 import Chat from './containers/Chat';
 import { fetch } from './utils'
-// import styles from './styles.css'
+import styles from './styles.css'
+import Loading from './components/Loading';
 // TODO find enum lib for js
 
 const NO_INFO_ABOUT_USER = 1;
@@ -53,8 +54,8 @@ class App extends React.Component {
   onSignIn(data) {
     this.setState({ user: data }, () => {
       localStorage.setItem('token', this.state.user.token);
-      console.log('onSignIn...'); // eslint-disable-line
-      console.log(this.state.user); // eslint-disable-line
+      const token = localStorage.getItem('token');
+      console.log(`token in localstorage: ${token}`);
     });
   }
 
@@ -62,7 +63,7 @@ class App extends React.Component {
   render() {
     const { user } = this.state;
     if (user === NO_INFO_ABOUT_USER) {
-      return (<img className="loading-img" src="./img/loading.gif" alt="loading" />)
+      return (<Loading />)
     } // TODO circles
 
     if (user === USER_IS_GUEST) {

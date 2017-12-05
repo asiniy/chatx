@@ -8,12 +8,9 @@ import { get } from 'lodash';
 // export default (args) => { alert(args); }
 
 const SUCCESSUL_RATES = [200, 201, 304];
-// fetch(url, { method: 'GET', params: { some_param: 1, a: "b", vasiliy: "is awesome" } })
-// 'http://localhost:3000/api/users/me'
 export default (url, options) => {
   const token = localStorage.getItem('token');
   const method = get(options, 'method', 'GET') // TODO посмотреть что это
-
   const baseOptions = {
     method,
     headers: {

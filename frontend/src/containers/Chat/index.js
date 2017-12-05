@@ -1,9 +1,10 @@
 import React from 'react';
+import { isNull } from 'lodash';
 import PropTypes from 'prop-types';
 import { fetch } from '../../utils';
 import { Name, Username, MessageList } from '../../components';
+import Loading from '../../components/Loading';
 
-// почитать camelCase
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -12,30 +13,31 @@ export default class Chat extends React.Component {
     }
   }
 
-
   componentDidMount() {
-    fetch('http://localhost:3000/api/users/me', { method: 'GET' })
-      .then((msg) => {
-        this.setState({ messages: msg })
+    fetch('http://localhost:3000/api/messages')
+      .then((messages) => {
+        this.setState({ messages })
       });
   }
 
-render() {
-    const { onSignOut } = this.props;
-    const { user } = this.props;
+  render() {
+    const { onSignOut, user } = this.props;
+    const { messages } = this.state;
+
+    //  if messages is null return loadig gif
+    if (isNull(messages)) return <Loading />;
 
     return (
       <div>
         <Name
-          firstName={user.first_name}
-          lastName={user.last_name}
+          user={user}
         />
         <div>id: {user.id}</div>
         <Username username={user.username} />
         <button onClick={onSignOut}>
           Sign Out
         </button>
-        <MessageList msgs={this.state.messages} />
+        <MessageList messages={messages} />
       </div>
     );
   }

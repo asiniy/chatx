@@ -1,3 +1,4 @@
 import React from 'react';
+import { name } from '../../utils';
 
-export default props => <div>{props.firstName} {props.lastName}</div>; // eslint-disable-line
+export default ({ user }) => <div>{name(user)}</div>; // eslint-disable-line
