@@ -1,6 +1,7 @@
 // import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Form, FormControl, Button, ControlLabel } from 'react-bootstrap';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -60,15 +61,24 @@ export default class SignInForm extends React.Component {
 
   render() {
     return (
-      <form className="container" onSubmit={this.onSubmit}>
+      <Form horizontal>
         <h1>Sign In</h1>
-        {this.renderErrors()}
-        <label htmlFor="SignInForm">
-          <input name="username" type="text" value={this.state.username} onChange={this.onChange} />
-          <input name="password" type="password" value={this.state.password} onChange={this.onChange} />
-        </label>
-        <input type="submit" value="Sign In" />
-      </form>
+        <ControlLabel>Username</ControlLabel>
+        <FormControl
+          type="text"
+          value={this.state.username}
+          placeholder="username"
+          onChange={this.onChange}
+        />
+        <ControlLabel>Password</ControlLabel>
+        <FormControl
+          type="password"
+          value={this.state.password}
+          placeholder="username"
+          onChange={this.onChange}
+        />
+        <Button onClick={this.onSubmit}>Sign In</Button>
+      </Form>
     );
   }
 }
