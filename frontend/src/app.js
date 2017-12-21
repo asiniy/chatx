@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { isNil } from 'lodash'; // {is Nil}
 import SignIn from './containers/SignIn';
 import Chat from './containers/Chat';
 import { fetch } from './utils'
 import styles from './styles.css'
 import Loading from './components/Loading';
+
 // TODO find enum lib for js
 
 const NO_INFO_ABOUT_USER = 1;
@@ -76,4 +78,11 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  //<App />
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+    </Route>
+  </Router>
+  , document.getElementById('root')
+);
