@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { isNil } from 'lodash'; // {is Nil}
-import SignIn from './containers/SignIn';
-import Chat from './containers/Chat';
 import { fetch } from './utils'
 import styles from './styles.css'
+
+import SignIn from './containers/SignIn';
+import Chat from './containers/Chat';
 import Loading from './components/Loading';
 
 // TODO find enum lib for js
@@ -79,9 +80,11 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  //<App />
+  // <App />
   <Router history={hashHistory}>
     <Route path="/" component={App}>
+      <IndexRoute component={SignIn} />
+      <Route path="/chat" component={Chat} />
     </Route>
   </Router>
   , document.getElementById('root')
