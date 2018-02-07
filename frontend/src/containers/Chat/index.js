@@ -2,7 +2,8 @@ import React from 'react';
 import { isNull } from 'lodash';
 import PropTypes from 'prop-types';
 import { fetch } from '../../utils';
-import { Name, Username, MessageList } from '../../components';
+import { Name, Username, MessageField, MessageList } from '../../components';
+import { Button } from 'react-bootstrap';
 import Loading from '../../components/Loading';
 
 export default class Chat extends React.Component {
@@ -34,9 +35,10 @@ export default class Chat extends React.Component {
         />
         <div>id: {user.id}</div>
         <Username username={user.username} />
-        <button onClick={onSignOut}>
+        <Button onClick={onSignOut}>
           Sign Out
-        </button>
+        </Button>
+        <MessageField />
         <MessageList messages={messages} />
       </div>
     );

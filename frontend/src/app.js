@@ -86,6 +86,6 @@ ReactDOM.render(
       <IndexRoute component={SignIn} />
       <Route path="/chat" component={Chat} />
     </Route>
-  </Router>
-  , document.getElementById('root')
+  </Router>,
+  document.getElementById('root'),
 );

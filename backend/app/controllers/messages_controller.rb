@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    message = current_user.messages.build(body: params[:body])
+    message = current_user.messages.build(body: params[:message][:body])
 
     if message.valid?
       message.save!
