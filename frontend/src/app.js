@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { isNil } from 'lodash'; // {is Nil}
 import { fetch } from './utils'
-import styles from './styles.css'
+//  import styles from './styles.css'
 
 import SignIn from './containers/SignIn';
 import Chat from './containers/Chat';

@@ -26,14 +26,13 @@ export default (url, options) => {
       customFetchOptions = {};
       break;
     case 'POST':
-      customFetchOptions = { body: options.params };
+      customFetchOptions = { body: options.params }; // options.params
       break;
     default:
       throw new Error(`No such HTTP method: ${method}`);
   }
 
   const fetchOptions = Object.assign({}, baseOptions, customFetchOptions)
-
   return fetch(url, fetchOptions)
     .then(async (resp) => {
       const data = await resp.json();
