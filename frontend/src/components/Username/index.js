@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default props => <div>@{props.username}</div>; // eslint-disable-line
+export default props => <span>@{props.username}</span>; // eslint-disable-line

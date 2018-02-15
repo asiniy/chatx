@@ -84,5 +84,5 @@ export default class SignInForm extends React.Component {
 }
 
 SignInForm.propTypes = {
-  onSignIn: PropTypes.func.isRequired,
+  onSignIn: PropTypes.func,
 };
