@@ -38,7 +38,7 @@ export default class Chat extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 user-col bg-dark text-white">
+          <div className="col-lg-3 user-col bg-dark text-white col-xs-6">
             <h2 className="username"><Name
               user={user}
             />
@@ -47,12 +47,12 @@ export default class Chat extends React.Component {
               username={user.username}
             /><span className="text-secondary"> #{user.id}</span>
             </h5>
-            <span><Button onClick={onSignOut}>
+            <span className="button-signout"><Button onClick={onSignOut}>
               Sign Out
                   </Button>
             </span>
           </div>
-          <div className="col-lg-9 main-col">
+          <div className="col-lg-9 main-col col-xs-6">
             <div className="message-field">
               <MessageField
                 getMessageList={this.getMessageList}

@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormControl, Button, ControlLabel } from 'react-bootstrap';
+import styles from './styles.css'
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -61,24 +62,35 @@ export default class SignInForm extends React.Component {
 
   render() {
     return (
-      <Form horizontal>
-        <h1>Sign In</h1>
-        <ControlLabel>Username</ControlLabel>
-        <FormControl
-          type="text"
-          value={this.state.username}
-          placeholder="username"
-          onChange={this.onChange}
-        />
-        <ControlLabel>Password</ControlLabel>
-        <FormControl
-          type="password"
-          value={this.state.password}
-          placeholder="username"
-          onChange={this.onChange}
-        />
-        <Button onClick={this.onSubmit}>Sign In</Button>
-      </Form>
+      <div className="row">
+        <div className="col-lg-4" />
+        <div className="col-lg-4">
+          <div className="container sign-in-form">
+            <Form horizontal>
+              <h1>Sign In</h1>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.username}
+                placeholder="username"
+                onChange={this.onChange}
+              />
+              <ControlLabel>Password</ControlLabel>
+              <FormControl
+                type="password"
+                value={this.state.password}
+                placeholder="username"
+                onChange={this.onChange}
+              />
+            </Form>
+            <Button onClick={this.onSubmit}>Sign In</Button>
+            <a className="forgot" href="#">Forgot password?</a>
+          </div>
+        </div>
+        <div className="col-lg-4" />
+      </div>
+
+
     );
   }
 }
