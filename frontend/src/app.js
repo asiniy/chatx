@@ -4,11 +4,11 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { isNil } from 'lodash'; // {is Nil}
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { push } from 'react-router-redux'
 
-import pages from './reducers/pages'
 import { fetch } from './utils';
-import SignIn from './containers/SignIn';
-import Chat from './containers/Chat';
+// import SignIn from './containers/SignIn';
+// import Chat from './containers/Chat';
 import Loading from './components/Loading';
 
 // TODO find enum lib for js
@@ -36,17 +36,21 @@ class App extends React.Component {
     const token = localStorage.getItem('token');
 
     if (isNil(token)) {
-      this.setState({ user: USER_IS_GUEST });
+      push('/sign_in')
       return
     }
 
     fetch('http://localhost:3000/api/users/me', { method: 'GET' })
-      .then((data) => {
-        this.setState({ user: data })
+      .then((user) => {
+        // mapDispatchToProps - определять функции
+        // redux-thunk попробуй реализовать
+        // const { setUser } = this.props
+        setUser(user)
+
       })
       .catch((data) => {
-        console.log(data);
         this.setState({ user: USER_IS_GUEST });
+        push('/chat') // посылать
       })
   }
 
@@ -62,36 +66,26 @@ class App extends React.Component {
 
 
   render() {
-    const { user } = this.state;
+    // mapDispatchToProps = (state, dispatch) => ({ push: dispatch(push) })
+    // mapStateToProps => (state) => ({ user: state.user })
+    const { user } = this.props
+    // const { user } = this.state;
     if (user === NO_INFO_ABOUT_USER) {
       return (<Loading />)
     }
 
+    render children // посмотри как react-router выводит детей
+
     if (user === USER_IS_GUEST) {
-      return (<SignIn
-        onSignIn={this.onSignIn}
-      />);
+      push("/sign_in")
     }
 
-    return (<Chat
-      user={user}
-      onSignOut={this.onSignOut}
-    />);
+    push("/chat")
+    // return (<Chat
+    //   user={user}
+    //   onSignOut={this.onSignOut}
+    // />);
   }
 }
 
-
-//const store = createStore(pages);
-// <indexRoute component={SignIn} />
-
-ReactDOM.render(
-//  <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/" component={App}>
-        <Route path="signin"component={SignIn} />
-        <Route path="/chat" component={Chat} />
-      </Route>
-    </Router>,
-//  </Provider>,
-  document.getElementById('root'),
-);
+export default connect(App)(mapStateToProps, mapDispatchToProps)
