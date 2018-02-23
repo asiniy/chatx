@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { isNil } from 'lodash'; // {is Nil}
-import { fetch } from './utils'
-//  import styles from './styles.css'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
+import pages from './reducers/pages'
+import { fetch } from './utils';
 import SignIn from './containers/SignIn';
 import Chat from './containers/Chat';
 import Loading from './components/Loading';
@@ -35,7 +37,6 @@ class App extends React.Component {
 
     if (isNil(token)) {
       this.setState({ user: USER_IS_GUEST });
-
       return
     }
 
@@ -79,13 +80,18 @@ class App extends React.Component {
   }
 }
 
+
+//const store = createStore(pages);
+// <indexRoute component={SignIn} />
+
 ReactDOM.render(
-  // <App />
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={SignIn} />
-      <Route path="/chat" component={Chat} />
-    </Route>
-  </Router>,
+//  <Provider store={store}>
+    <Router history={hashHistory}>
+      <Route path="/" component={App}>
+        <Route path="signin"component={SignIn} />
+        <Route path="/chat" component={Chat} />
+      </Route>
+    </Router>,
+//  </Provider>,
   document.getElementById('root'),
 );
