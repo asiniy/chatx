@@ -67,14 +67,6 @@ class WrappedApp extends React.Component {
   }
 
   render() {
-    const arr = this.props;
-    if (!isNil(arr)) {
-      objToProp = arr;
-      console.log(arr);
-    }
-
-//    const mapDispatchToProps = (state, dispatch) => ({ push: dispatch(push) });
-//    const mapStateToProps = state => ({ user: state.user })
     // TODO const { user } = this.props
     const { user } = this.state;
     if (user === NO_INFO_ABOUT_USER) {
@@ -87,12 +79,10 @@ class WrappedApp extends React.Component {
       // TODO push("/sign_in")
       return (<SignIn
         onSignIn={this.onSignIn}
-        user={objToProp}
       />);
     }
     // TODO push("/chat")
     return (<Chat
-      user={user}
       onSignOut={this.onSignOut}
     />);
   }
@@ -108,10 +98,6 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-const mapStateToProps = state => ({
-  user: state.user,
-});
-
 const mapDispatchToProps = dispatch => bindActionCreators({ clickButton: clickBtn }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedApp);
+export default connect(null, mapDispatchToProps)(WrappedApp);

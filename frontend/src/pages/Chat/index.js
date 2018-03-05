@@ -8,7 +8,7 @@ import styles from './styles.css'
 import Loading from '../../components/Loading';
 import { connect } from 'react-redux';
 
-export default class Chat extends React.Component {
+class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,8 +33,6 @@ export default class Chat extends React.Component {
     const { onSignOut, user } = this.props;
     const { messages } = this.state;
 
-
-
     //  if messages is null return loadig gif
     if (isNull(messages)) return <Loading />;
 
@@ -50,9 +48,10 @@ export default class Chat extends React.Component {
               username={user.username}
             /><span className="text-secondary"> #{user.id}</span>
             </h5>
-            <span className="button-signout"><Button onClick={onSignOut}>
+            <span className="button-signout">
+              <Button onClick={onSignOut}>
               Sign Out
-                  </Button>
+              </Button>
             </span>
           </div>
           <div className="col-lg-9 main-col col-xs-6">
@@ -87,4 +86,6 @@ Username.propTypes = {
   username: PropTypes.string,
 };
 
-//обертка над фетч -токен утда
+const mapStateToProps = ({ user }) => ({ user })
+
+export default connect(mapStateToProps)(Chat)

@@ -7,11 +7,11 @@ import styles from './styles.css'
 export default class SignInForm extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   username: 'vasiliy',
-    //   password: 'secret',
-    //   errors: [],
-    // }
+
+    this.state = {
+      username: '',
+      password: '',
+    }
 
 
     this.onChange = this.onChange.bind(this);
@@ -19,10 +19,12 @@ export default class SignInForm extends React.Component {
   }
 
   onChange(e) {
-    // this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
+    e.preventDefault() // TODO изучить e.preventDefault()
+    console.log('there')
     // const { onSignIn } = this.props;
     // const { username, password } = this.state;
     // e.preventDefault();
@@ -62,7 +64,8 @@ export default class SignInForm extends React.Component {
   /* eslint-enable */
 
   render() {
-    //console.log(this.props);
+    const { username, password } = this.state
+
     return (
       <div className="row">
         <div className="col-lg-4" />
@@ -73,20 +76,20 @@ export default class SignInForm extends React.Component {
               <ControlLabel>Username</ControlLabel>
               <FormControl
                 type="text"
-                value={this.props.user.username}
+                value={username}
                 placeholder="username"
                 onChange={this.onChange}
               />
               <ControlLabel>Password</ControlLabel>
               <FormControl
                 type="password"
-                value={this.props.user.password}
+                value={password}
                 placeholder="username"
                 onChange={this.onChange}
               />
             </Form>
             <Button onClick={this.onSubmit}>Sign In</Button>
-            <a className="forgot" href="#">Forgot password?</a>
+            <a className="forgot" href="/">Forgot password?</a>
           </div>
         </div>
         <div className="col-lg-4" />
