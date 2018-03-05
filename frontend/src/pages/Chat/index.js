@@ -6,6 +6,7 @@ import { Name, Username, MessageField, MessageList } from '../../components';
 import { Button } from 'react-bootstrap';
 import styles from './styles.css'
 import Loading from '../../components/Loading';
+import { connect } from 'react-redux';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -31,6 +32,8 @@ export default class Chat extends React.Component {
   render() {
     const { onSignOut, user } = this.props;
     const { messages } = this.state;
+
+
 
     //  if messages is null return loadig gif
     if (isNull(messages)) return <Loading />;
@@ -66,6 +69,9 @@ export default class Chat extends React.Component {
   }
 }
 
+// const mapStateToProps = state => ({ user: state.user });
+//
+// export default connect(mapStateToProps)(Chat);
 
 Chat.propTypes = {
   user: PropTypes.object.isRequired,
@@ -81,4 +87,4 @@ Username.propTypes = {
   username: PropTypes.string,
 };
 
-// обертка над фетч -токен утда
+//обертка над фетч -токен утда

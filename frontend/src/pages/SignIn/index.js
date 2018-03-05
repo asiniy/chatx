@@ -7,60 +7,62 @@ import styles from './styles.css'
 export default class SignInForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: 'vasiliy',
-      password: 'secret',
-      errors: [],
-    }
+    // this.state = {
+    //   username: 'vasiliy',
+    //   password: 'secret',
+    //   errors: [],
+    // }
+
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    // this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
-    const { onSignIn } = this.props;
-    const { username, password } = this.state;
-    e.preventDefault();
-    fetch('http://localhost:3000/api/session', {
-      method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then((resp) => {
-      if (resp.status === 422) {
-        resp.json().then((data) => {
-          this.setState({ errors: data.errors })
-        });
-        return
-      }
-
-      if (resp.status === 201) {
-        resp.json().then(data => onSignIn(data));
-      }
-    });
+    // const { onSignIn } = this.props;
+    // const { username, password } = this.state;
+    // e.preventDefault();
+    // fetch('http://localhost:3000/api/session', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ username, password }),
+    //   headers: { 'Content-Type': 'application/json' },
+    // }).then((resp) => {
+    //   if (resp.status === 422) {
+    //     resp.json().then((data) => {
+    //       this.setState({ errors: data.errors })
+    //     });
+    //     return
+    //   }
+    //
+    //   if (resp.status === 201) {
+    //     resp.json().then(data => onSignIn(data));
+    //   }
+    // });
   }
 
   renderErrors() {
-    const { errors } = this.state
-
-    if (errors.length === 0) { return }
-
-/* eslint-disable */
-    return (
-      <div>
-        <h2>Vasiliy has errors on sign in</h2>
-        <ul>
-          {this.state.errors.map((error, i) => (<li key={i}>{error}</li>))}
-        </ul>
-      </div>
-    )
+//     const { errors } = this.state
+//
+//     if (errors.length === 0) { return }
+//
+// /* eslint-disable */
+//     return (
+//       <div>
+//         <h2>Vasiliy has errors on sign in</h2>
+//         <ul>
+//           {this.state.errors.map((error, i) => (<li key={i}>{error}</li>))}
+//         </ul>
+//       </div>
+//     )
   }
   /* eslint-enable */
 
   render() {
+    //console.log(this.props);
     return (
       <div className="row">
         <div className="col-lg-4" />
@@ -71,14 +73,14 @@ export default class SignInForm extends React.Component {
               <ControlLabel>Username</ControlLabel>
               <FormControl
                 type="text"
-                value={this.state.username}
+                value={this.props.user.username}
                 placeholder="username"
                 onChange={this.onChange}
               />
               <ControlLabel>Password</ControlLabel>
               <FormControl
                 type="password"
-                value={this.state.password}
+                value={this.props.user.password}
                 placeholder="username"
                 onChange={this.onChange}
               />
@@ -89,8 +91,6 @@ export default class SignInForm extends React.Component {
         </div>
         <div className="col-lg-4" />
       </div>
-
-
     );
   }
 }
