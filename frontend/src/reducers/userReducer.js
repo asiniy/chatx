@@ -1,13 +1,13 @@
+import { USER_SIGNED_IN } from '../constants/actions'
+
 const initialState = {
   id: '',
   username: '',
-  password: '',
-  errors: [],
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'USER_LOGGED_IN':
+    case USER_SIGNED_IN:
       return action.payload
     default:
       return state

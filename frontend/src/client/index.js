@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import SignIn from '../pages/SignIn';
 import Loading from '../components/Loading'
 import Chat from '../pages/Chat';
-//import { userLoggedIn } from '../actions/index';
+//import { userSignedIn } from '../actions/index';
 
 const NO_INFO_ABOUT_USER = 1;
 const USER_IS_GUEST = 3;
@@ -97,7 +97,7 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-//const mapDispatchToProps = dispatch => bindActionCreators({ clickButton: userLoggedIn }, dispatch);
+//const mapDispatchToProps = dispatch => bindActionCreators({ clickButton: userSignedIn }, dispatch);
 
 //export default connect(null, mapDispatchToProps)(WrappedApp);
 export default WrappedApp;

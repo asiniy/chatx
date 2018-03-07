@@ -1,12 +1,20 @@
-export const userLoggedIn = (user) => {
+export const userSignedIn = (user) => {
   console.log('User logged in');
 
   return {
-    type: 'USER_LOGGED_IN',
+    type: 'USER_SIGNED_IN',
     payload: user,
   }
 }
 
+export const setMessages = (messages) => {
+  console.log('Messages setted');
+
+  return {
+    type: 'SET_MESSAGES',
+    payload: messages,
+  }
+}
 
 
 // const cliskBtn = () => {

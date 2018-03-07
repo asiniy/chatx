@@ -15,36 +15,30 @@ import * as Actions from '../../actions'
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      messages: null,
-    }
-
     this.getMessageList = this.getMessageList.bind(this);
   }
 
   componentDidMount() {
-    this.props.userLoggedIn({
+    const { userSignedIn } = this.props;
+    userSignedIn({
       id: '1',
       username: 'vasiliy',
       first_name: 'Vasiliy',
       last_name: 'Gladishev',
-      errors: []
     });
     this.getMessageList();
   }
-
+  // replace with async/await
   getMessageList() {
     fetch('http://localhost:3000/api/messages')
       .then((messages) => {
-        this.setState({ messages })
+        this.props.setMessages(messages);// TODO to redux set messages, add message (websocket)
       });
   }
 
 
   render() {
-    console.log(this.props);
-    const { onSignOut, user } = this.props;
-    const { messages } = this.state;
+    const { onSignOut, user, messages } = this.props;
     //  if messages is null return loadig gif
     if (isNull(messages)) return <Loading />;
 
@@ -86,6 +80,7 @@ class Chat extends React.Component {
 
 Chat.propTypes = {
   user: PropTypes.object.isRequired,
+  messages: PropTypes.array,
   onSignOut: PropTypes.func,
 };
 //
@@ -98,7 +93,8 @@ Username.propTypes = {
   username: PropTypes.string,
 };
 
-const mapStateToProps = ({ user }) => ({ user });
+
+const mapStateToProps = ({ user, messages }) => ({ user, messages });
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {
