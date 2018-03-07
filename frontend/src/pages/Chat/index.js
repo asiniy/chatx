@@ -7,6 +7,10 @@ import { Button } from 'react-bootstrap';
 import styles from './styles.css'
 import Loading from '../../components/Loading';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+//import { userLoggedIn } from '../../actions';
+
+import * as Actions from '../../actions'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -19,6 +23,13 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
+    this.props.userLoggedIn({
+      id: '1',
+      username: 'vasiliy',
+      first_name: 'Vasiliy',
+      last_name: 'Gladishev',
+      errors: []
+    });
     this.getMessageList();
   }
 
@@ -29,10 +40,11 @@ class Chat extends React.Component {
       });
   }
 
+
   render() {
+    console.log(this.props);
     const { onSignOut, user } = this.props;
     const { messages } = this.state;
-
     //  if messages is null return loadig gif
     if (isNull(messages)) return <Loading />;
 
@@ -86,6 +98,20 @@ Username.propTypes = {
   username: PropTypes.string,
 };
 
-const mapStateToProps = ({ user }) => ({ user })
+const mapStateToProps = ({ user }) => ({ user });
 
-export default connect(mapStateToProps)(Chat)
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     userLoggedIn: (user) => {
+//       dispatch(userLoggedIn(user))
+//     }
+//   }
+// }
+//
+// const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(Actions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)

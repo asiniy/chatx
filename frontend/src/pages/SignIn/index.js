@@ -9,8 +9,8 @@ export default class SignInForm extends React.Component {
     super(props);
 
     this.state = {
-      username: '',
-      password: '',
+      username: 'vasiliy',
+      password: 'secret',
     }
 
 
@@ -24,42 +24,41 @@ export default class SignInForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault() // TODO изучить e.preventDefault()
-    console.log('there')
-    // const { onSignIn } = this.props;
-    // const { username, password } = this.state;
-    // e.preventDefault();
-    // fetch('http://localhost:3000/api/session', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ username, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // }).then((resp) => {
-    //   if (resp.status === 422) {
-    //     resp.json().then((data) => {
-    //       this.setState({ errors: data.errors })
-    //     });
-    //     return
-    //   }
-    //
-    //   if (resp.status === 201) {
-    //     resp.json().then(data => onSignIn(data));
-    //   }
-    // });
+    const { onSignIn } = this.props;
+    const { username, password } = this.state;
+    e.preventDefault();
+    fetch('http://localhost:3000/api/session', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then((resp) => {
+      if (resp.status === 422) {
+        resp.json().then((data) => {
+          this.setState({ errors: data.errors })
+        });
+        return
+      }
+
+      if (resp.status === 201) {
+        resp.json().then(data => onSignIn(data));
+      }
+    });
   }
 
   renderErrors() {
-//     const { errors } = this.state
-//
-//     if (errors.length === 0) { return }
-//
-// /* eslint-disable */
-//     return (
-//       <div>
-//         <h2>Vasiliy has errors on sign in</h2>
-//         <ul>
-//           {this.state.errors.map((error, i) => (<li key={i}>{error}</li>))}
-//         </ul>
-//       </div>
-//     )
+    const { errors } = this.state
+
+    if (errors.length === 0) { return }
+
+/* eslint-disable */
+    return (
+      <div>
+        <h2>Vasiliy has errors on sign in</h2>
+        <ul>
+          {this.state.errors.map((error, i) => (<li key={i}>{error}</li>))}
+        </ul>
+      </div>
+    )
   }
   /* eslint-enable */
 
@@ -77,14 +76,14 @@ export default class SignInForm extends React.Component {
               <FormControl
                 type="text"
                 value={username}
-                placeholder="username"
+                // placeholder="username"
                 onChange={this.onChange}
               />
               <ControlLabel>Password</ControlLabel>
               <FormControl
                 type="password"
                 value={password}
-                placeholder="username"
+                // placeholder="username"
                 onChange={this.onChange}
               />
             </Form>
