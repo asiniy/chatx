@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, hashHistory } from 'react-router';
-import { isNil } from 'lodash'; // {is Nil}
-import { push } from 'react-router-redux';
+import { isNil } from 'lodash';
 
 import SignIn from '../pages/SignIn';
 import Loading from '../components/Loading'

@@ -22,15 +22,18 @@ class Chat extends React.Component {
 
   componentDidMount() {
     const { userSignedIn } = this.props;
+
     userSignedIn({
       id: '1',
       username: 'vasiliy',
       first_name: 'Vasiliy',
       last_name: 'Gladishev',
-    });
+    })
+
     this.getMessageList();
   }
   // replace with async/await
+  // TODO insert redux-thunk
   getMessageList() {
     fetch('http://localhost:3000/api/messages')
       .then((messages) => {
@@ -44,14 +47,14 @@ class Chat extends React.Component {
     const {
       onSignOut,
       user,
-      messages,
+      messagesState: { loading, messages },
       addMessage,
     } = this.props;
     //  if messages is null return loadig gif
-    if (isNull(messages)) return <Loading />;
-    if (messages[messages.length - 1] !== undefined) {
-      lastMessageId = messages[messages.length - 1].id;
-    }
+
+    if (loading) {
+      return <Loading />
+    };
 
     return (
       <div className="container">
@@ -90,12 +93,12 @@ class Chat extends React.Component {
 
 Chat.propTypes = {
   user: PropTypes.object.isRequired,
-  messages: PropTypes.array,
+  messagesState: PropTypes.object.isRequired,
   onSignOut: PropTypes.func,
   setMessages: PropTypes.func,
   userSignedIn: PropTypes.func,
 };
-//
+
 Name.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
@@ -106,7 +109,7 @@ Username.propTypes = {
 };
 
 
-const mapStateToProps = ({ user, messages }) => ({ user, messages });
+const mapStateToProps = ({ user, messages }) => ({ user, messagesState: messages });
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch)
