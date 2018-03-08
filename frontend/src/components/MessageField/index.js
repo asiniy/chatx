@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { FormGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { fetch } from '../../utils';
 import styles from './styles.css'
@@ -19,12 +19,20 @@ export default class MessageField extends React.Component {
     this.setState({ message: e.target.value })
   }
   onSubmit() {
-    const { getMessageList } = this.props;
+    const { getMessageList, addMessage, user, lastMessageId } = this.props;
     const { message } = this.state;
     fetch('http://localhost:3000/api/messages', {
       method: 'POST',
       params: JSON.stringify({ message: { body: message } }),
-    }).then(() => { getMessageList() });
+    }).then(() => {
+      // getMessageList();
+      addMessage({
+        id: lastMessageId + 1,
+        body: message,
+        user,
+      });
+    });
+
   }
 
   render() {

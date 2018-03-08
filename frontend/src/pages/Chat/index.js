@@ -1,14 +1,16 @@
 import React from 'react';
 import { isNull } from 'lodash';
 import PropTypes from 'prop-types';
-import { fetch } from '../../utils';
-import { Name, Username, MessageField, MessageList } from '../../components';
 import { Button } from 'react-bootstrap';
-import styles from './styles.css'
-import Loading from '../../components/Loading';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-//import { userLoggedIn } from '../../actions';
+
+import { fetch } from '../../utils';
+import styles from './styles.css'
+import Loading from '../../components/Loading'
+import { Name, Username, MessageField, MessageList } from '../../components';
+
+// import { userLoggedIn } from '../../actions';
 
 import * as Actions from '../../actions'
 
@@ -38,9 +40,18 @@ class Chat extends React.Component {
 
 
   render() {
-    const { onSignOut, user, messages } = this.props;
+    let lastMessageId = 0;
+    const {
+      onSignOut,
+      user,
+      messages,
+      addMessage,
+    } = this.props;
     //  if messages is null return loadig gif
     if (isNull(messages)) return <Loading />;
+    if (messages[messages.length - 1] !== undefined) {
+      lastMessageId = messages[messages.length - 1].id;
+    }
 
     return (
       <div className="container">
@@ -64,6 +75,9 @@ class Chat extends React.Component {
             <div className="message-field">
               <MessageField
                 getMessageList={this.getMessageList}
+                addMessage={addMessage}
+                user={user}
+                lastMessageId={lastMessageId}
               />
             </div>
             <MessageList messages={messages} />
@@ -74,14 +88,12 @@ class Chat extends React.Component {
   }
 }
 
-// const mapStateToProps = state => ({ user: state.user });
-//
-// export default connect(mapStateToProps)(Chat);
-
 Chat.propTypes = {
   user: PropTypes.object.isRequired,
   messages: PropTypes.array,
   onSignOut: PropTypes.func,
+  setMessages: PropTypes.func,
+  userSignedIn: PropTypes.func,
 };
 //
 Name.propTypes = {
@@ -95,16 +107,6 @@ Username.propTypes = {
 
 
 const mapStateToProps = ({ user, messages }) => ({ user, messages });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     userLoggedIn: (user) => {
-//       dispatch(userLoggedIn(user))
-//     }
-//   }
-// }
-//
-// const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch)
