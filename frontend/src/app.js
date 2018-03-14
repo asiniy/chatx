@@ -1,28 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { Route, Router, hashHistory } from 'react-router';
+import thunk from 'redux-thunk';
 import WrappedApp from './client';
 import rootReducer from './reducers';
 
+import SignIn from './pages/SignIn';
+import Chat from './pages/Chat';
+
 
 /* eslint-disable no-underscore-dangle */
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
-/* eslint-enable */
-
-// store.subscribe(() => {
-//   console.log('subscribe', store.getState());
-// });
-// store.dispatch({ type: 'SIGN_IN', payload: { username: 'vasiliy', password: 'secret' } });
+// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+// const history = syncHistoryWithStore(hashHistory, store);
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <WrappedApp />
+    <Router history={history}>
+      <Route path="/" component={WrappedApp} >
+        <Route path="sign_in" component={SignIn} />
+        <Route path="chat" component={Chat} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('root'),
 );
-
-// TODO export default connect(App)(mapStateToProps, mapDispatchToProps)

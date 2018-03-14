@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { Link } from 'react-router'
 import { fetch } from '../../utils';
 import styles from './styles.css'
 import Loading from '../../components/Loading'
@@ -70,7 +70,7 @@ class Chat extends React.Component {
             </h5>
             <span className="button-signout">
               <Button onClick={onSignOut}>
-              Sign Out
+                Sign Out
               </Button>
             </span>
           </div>

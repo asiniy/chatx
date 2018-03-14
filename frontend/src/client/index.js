@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Route, Router, hashHistory } from 'react-router';
 import { isNil } from 'lodash';
+import { hashHistory } from 'react-router';
 
 import SignIn from '../pages/SignIn';
 import Loading from '../components/Loading'
@@ -46,8 +45,9 @@ class WrappedApp extends React.Component {
       })
       .catch((data) => {
         console.log(data);
-        this.setState({ user: USER_IS_GUEST });
+        // this.setState({ user: USER_IS_GUEST });
         // TODO push('/chat') // посылать
+        // hashHistory.push('/chat');
       })
   }
 
@@ -83,14 +83,14 @@ class WrappedApp extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={WrappedApp}>
-      <Route path="/sign_in" component={SignIn} />
-      <Route path="/chat" component={Chat} />
-    </Route>
-  </Router>,
-  document.getElementById('root'),
-);
+// ReactDOM.render(
+//    <Router history={hashHistory}>
+//     <Route path="/" component={WrappedApp}>
+//       <Route path="/sign_in" component={SignIn} />
+//       <Route path="/chat" component={Chat} />
+//     </Route>
+//    </Router>,
+//   document.getElementById('root'),
+// );
 
 export default WrappedApp;
