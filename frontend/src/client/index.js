@@ -1,7 +1,7 @@
 import React from 'react';
 import { isNil } from 'lodash';
-import { hashHistory } from 'react-router';
 
+import { wrap } from '../utils';
 import SignIn from '../pages/SignIn';
 import Loading from '../components/Loading'
 import Chat from '../pages/Chat';
@@ -26,6 +26,8 @@ class WrappedApp extends React.Component {
   }
 
   fetchUser() {
+    const { actions: { push } } = this.props
+
     const token = localStorage.getItem('token');
 
     if (isNil(token)) {
@@ -37,6 +39,7 @@ class WrappedApp extends React.Component {
     fetch('http://localhost:3000/api/users/me', { method: 'GET' })
       .then((data) => {
         this.setState({ user: data })
+        push('/chat')
       // TODO .then((user) => {
         // mapDispatchToProps - определять функции
         // redux-thunk попробуй реализовать
@@ -46,14 +49,14 @@ class WrappedApp extends React.Component {
       .catch((data) => {
         console.log(data);
         // this.setState({ user: USER_IS_GUEST });
-        // TODO push('/chat') // посылать
+        push('/sign_in')
         // hashHistory.push('/chat');
       })
   }
 
   onSignOut() {
-    this.setState({ user: USER_IS_GUEST });
     localStorage.removeItem('token');
+    push('/sign_in')
   }
 
   onSignIn(user) {
@@ -68,18 +71,7 @@ class WrappedApp extends React.Component {
       return (<Loading />)
     }
 
-    // TODO render children // посмотри как react-router выводит детей
-
-    if (user === USER_IS_GUEST) {
-      // TODO push("/sign_in")
-      return (<SignIn
-        onSignIn={this.onSignIn}
-      />);
-    }
-    // TODO push("/chat")
-    return (<Chat
-      onSignOut={this.onSignOut}
-    />);
+    return this.props.children
   }
 }
 
@@ -93,4 +85,4 @@ class WrappedApp extends React.Component {
 //   document.getElementById('root'),
 // );
 
-export default WrappedApp;
+export default wrap()(WrappedApp);
