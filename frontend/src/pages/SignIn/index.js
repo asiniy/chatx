@@ -9,8 +9,8 @@ export default class SignInForm extends React.Component {
     super(props);
 
     this.state = {
-      username: 'vasiliy',
-      password: 'secret',
+      username: '',
+      password: '',
     }
 
 
@@ -75,14 +75,13 @@ export default class SignInForm extends React.Component {
               <ControlLabel>Username</ControlLabel>
               <FormControl
                 type="text"
-                value={username}
-                // placeholder="username"
+                name="username"
                 onChange={this.onChange}
               />
               <ControlLabel>Password</ControlLabel>
               <FormControl
                 type="password"
-                value={password}
+                name="password"
                 // placeholder="username"
                 onChange={this.onChange}
               />

@@ -1,10 +1,9 @@
 import React from 'react';
 import { isNil } from 'lodash';
+import PropTypes from 'prop-types';
 
 import { wrap } from '../utils';
-import SignIn from '../pages/SignIn';
 import Loading from '../components/Loading'
-import Chat from '../pages/Chat';
 
 const NO_INFO_ABOUT_USER = 1;
 const USER_IS_GUEST = 3;
@@ -56,7 +55,6 @@ class WrappedApp extends React.Component {
   }
 
   onSignOut() {
-    console.log('there');
     const { actions: { push } } = this.props;
     localStorage.removeItem('token');
     push('/sign_in');
@@ -71,11 +69,11 @@ class WrappedApp extends React.Component {
 
   render() {
     const { user } = this.state;
-    const { children } = this.props;
 
-    const childWithProp = React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, { onSignIn: this.onSignIn, onSignOut: this.onSignOut });
-    });
+    const childWithProp = React.Children.map(
+      this.props.children,
+      child => React.cloneElement(child, { onSignIn: this.onSignIn, onSignOut: this.onSignOut }),
+    );
 
     if (user === NO_INFO_ABOUT_USER) {
       return (<Loading />)
@@ -96,3 +94,8 @@ class WrappedApp extends React.Component {
 // );
 
 export default wrap()(WrappedApp);
+
+WrappedApp.propTypes = {
+  actions: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
+};
