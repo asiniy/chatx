@@ -26,20 +26,21 @@ class WrappedApp extends React.Component {
   }
 
   fetchUser() {
+    // console.log(this.props.actions.push);
     const { actions: { push } } = this.props
 
     const token = localStorage.getItem('token');
 
     if (isNil(token)) {
       this.setState({ user: USER_IS_GUEST });
-      // TODO push('/sign_in')
+      push('/sign_in')
       return
     }
 
     fetch('http://localhost:3000/api/users/me', { method: 'GET' })
       .then((data) => {
         this.setState({ user: data })
-        push('/chat')
+        push('/chat');
       // TODO .then((user) => {
         // mapDispatchToProps - определять функции
         // redux-thunk попробуй реализовать
@@ -49,29 +50,38 @@ class WrappedApp extends React.Component {
       .catch((data) => {
         console.log(data);
         // this.setState({ user: USER_IS_GUEST });
-        push('/sign_in')
+        push('/sign_in');
         // hashHistory.push('/chat');
       })
   }
 
   onSignOut() {
+    console.log('there');
+    const { actions: { push } } = this.props;
     localStorage.removeItem('token');
-    push('/sign_in')
+    push('/sign_in');
   }
 
   onSignIn(user) {
+    const { actions: { push } } = this.props;
     localStorage.setItem('token', user.token);
     this.setState({ user });
+    push('/chat');
   }
 
   render() {
-    // TODO const { user } = this.props
     const { user } = this.state;
+    const { children } = this.props;
+
+    const childWithProp = React.Children.map(this.props.children, (child) => {
+      return React.cloneElement(child, { onSignIn: this.onSignIn, onSignOut: this.onSignOut });
+    });
+
     if (user === NO_INFO_ABOUT_USER) {
       return (<Loading />)
     }
 
-    return this.props.children
+    return childWithProp[0];
   }
 }
 

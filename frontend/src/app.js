@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
@@ -13,9 +13,10 @@ import SignIn from './pages/SignIn';
 import Chat from './pages/Chat';
 
 /* eslint-disable no-underscore-dangle */
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, routerMiddleware(hashHistory)),
+  composeEnhancers(applyMiddleware(thunk, routerMiddleware(hashHistory))),
 );
 const history = syncHistoryWithStore(hashHistory, store);
 
