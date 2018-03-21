@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import { Route, IndexRoute, Router, hashHistory } from 'react-router';
+import { Route, Router, hashHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import WrappedApp from './client';
 import rootReducer from './reducers';

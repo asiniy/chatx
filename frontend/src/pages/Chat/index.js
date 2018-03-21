@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router'
 import { fetch } from '../../utils';
 import styles from './styles.css'
@@ -49,6 +50,8 @@ class Chat extends React.Component {
       user,
       messagesState: { loading, messages },
       addMessage,
+      handleSubmit,
+      form,
     } = this.props;
     //  if messages is null return loadig gif
 
@@ -80,6 +83,7 @@ class Chat extends React.Component {
                 getMessageList={this.getMessageList}
                 addMessage={addMessage}
                 user={user}
+                form={form}
                 lastMessageId={lastMessageId}
               />
             </div>
@@ -109,10 +113,9 @@ Username.propTypes = {
 };
 
 
-const mapStateToProps = ({ user, messages }) => ({ user, messagesState: messages });
+const mapStateToProps = ({ user, messages, form }) => ({ user, messagesState: messages, form });
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Actions, dispatch)
-}
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat)
+const withProps = connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default reduxForm({ form: 'messageData' })(withProps);

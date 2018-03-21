@@ -83,16 +83,6 @@ class WrappedApp extends React.Component {
   }
 }
 
-// ReactDOM.render(
-//    <Router history={hashHistory}>
-//     <Route path="/" component={WrappedApp}>
-//       <Route path="/sign_in" component={SignIn} />
-//       <Route path="/chat" component={Chat} />
-//     </Route>
-//    </Router>,
-//   document.getElementById('root'),
-// );
-
 export default wrap()(WrappedApp);
 
 WrappedApp.propTypes = {

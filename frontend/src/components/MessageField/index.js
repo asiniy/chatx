@@ -2,7 +2,7 @@ import React from 'react';
 import { FormGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
-
+import { Field } from 'redux-form'
 import { fetch } from '../../utils';
 import styles from './styles.css'
 
@@ -24,6 +24,7 @@ export default class MessageField extends React.Component {
         messageText: '',
       };
     } else {
+      console.log('local storage not empty');
       this.state = {
         messageText: messageInLocalStorage,
       };
@@ -61,33 +62,46 @@ export default class MessageField extends React.Component {
     fetch('http://localhost:3000/api/messages', {
       method: 'POST',
       params: JSON.stringify({ message: { body: messageText } }),
-    }).then(
-      message => addMessage(message)
-    );
+    }).then(message => addMessage(message));
 
     this.setState({ messageText: '' }); // todo to  then
     localStorage.removeItem('message');
   }
 
   render() {
+    //if (this.props.form.messageData.values === undefined) {
+      //console.log(this.props.form.messageData.values);
+    //  console.log('lol');
+    //}
+    const { handleSubmit, form } = this.props;
     return (
-      <form>
-        <FormGroup controlId="formControlsTextarea">
-          <textarea
-            className="Message-input form-control"
-            type="text"
-            placeholder="Enter text message"
-            onChange={this.onChange}
-            value={this.state.messageText}
-            rows="4"
-          />
-        </FormGroup>
-        <div className="row">
-          <div className="col-lg-12">
-            <Button className="submit-button" type="submit" onClick={this.onSubmit} disabled={!this.state.messageText.trim()} >Submit</Button>
-          </div>
-        </div>
-      </form>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <FormGroup controlId="formControlsTextarea">
+            <Field
+              name="message"
+              component="input"
+              type="text"
+              className="Message-input form-control"
+              placeholder="Enter text message"
+              onChange={this.onChange}
+              value={this.state.messageText}
+              rows="4"
+            />
+            <div className="row">
+              <div className="col-lg-12">
+                <Button
+                  className="submit-button"
+                  type="submit"
+                  onClick={this.onSubmit}
+                  disabled={!this.state.messageText.trim()}>
+                  Submit
+                </Button>
+              </div>
+            </div>
+          </FormGroup>
+        </form>
+      </div>
     )
   }
 }

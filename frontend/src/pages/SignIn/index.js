@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Form, FormControl, Button, ControlLabel } from 'react-bootstrap';
 import styles from './styles.css'
 
-export default class SignInForm extends React.Component {
+class SignInForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -63,7 +63,7 @@ export default class SignInForm extends React.Component {
   /* eslint-enable */
 
   render() {
-    const { username, password } = this.state
+  // const { handleSubmit } = this.props
 
     return (
       <div className="row">
@@ -82,7 +82,6 @@ export default class SignInForm extends React.Component {
               <FormControl
                 type="password"
                 name="password"
-                // placeholder="username"
                 onChange={this.onChange}
               />
             </Form>
@@ -99,3 +98,16 @@ export default class SignInForm extends React.Component {
 SignInForm.propTypes = {
   onSignIn: PropTypes.func,
 };
+
+// export default reduxForm({ form: 'signIn' })(SignInForm);
+export default SignInForm;
+
+/*
+<form onSubmit={handleSubmit}>
+  <div>
+    <label htmlFor="firstName">First Name</label>
+    <Field name="firstName" component="input" type="text" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
+*/
