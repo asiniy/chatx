@@ -118,4 +118,4 @@ const mapStateToProps = ({ user, messages, form }) => ({ user, messagesState: me
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
 const withProps = connect(mapStateToProps, mapDispatchToProps)(Chat);
-export default reduxForm({ form: 'messageData' })(withProps);
+export default reduxForm({ form: 'messageData', initialValues: { message:localStorage.getItem('message') } })(withProps);

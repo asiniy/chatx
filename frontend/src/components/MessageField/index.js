@@ -72,7 +72,7 @@ export default class MessageField extends React.Component {
     //if (this.props.form.messageData.values === undefined) {
       //console.log(this.props.form.messageData.values);
     //  console.log('lol');
-    //}
+    // }
     const { handleSubmit, form } = this.props;
     return (
       <div>
